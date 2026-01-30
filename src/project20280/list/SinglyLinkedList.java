@@ -4,11 +4,11 @@ import project20280.interfaces.List;
 
 import java.util.Iterator;
 
-public class SinglyLinkedList<E> implements List<E> {
+public class SinglyLinkedList<E> implements List<E>, Iterator<E> {
 
     private static class Node<E> {
 
-        private final E element;            // reference to the element stored at this node
+        private E element;            // reference to the element stored at this node
 
         /**
          * A reference to the subsequent node in the list
@@ -23,6 +23,8 @@ public class SinglyLinkedList<E> implements List<E> {
          */
         public Node(E e, Node<E> n) {
             // TODO
+            element = e;
+            next = n;
         }
 
         // Accessor methods
@@ -33,7 +35,7 @@ public class SinglyLinkedList<E> implements List<E> {
          * @return the element stored at the node
          */
         public E getElement() {
-            return null;
+            return element;
         }
 
         /**
@@ -43,7 +45,7 @@ public class SinglyLinkedList<E> implements List<E> {
          */
         public Node<E> getNext() {
             // TODO
-            return null;
+            return next;
         }
 
         // Modifier methods
@@ -55,6 +57,7 @@ public class SinglyLinkedList<E> implements List<E> {
          */
         public void setNext(Node<E> n) {
             // TODO
+            next = n;
         }
     } //----------- end of nested Node class -----------
 
@@ -75,53 +78,134 @@ public class SinglyLinkedList<E> implements List<E> {
     //@Override
     public int size() {
         // TODO
-        return 0;
+        return size;
     }
 
     //@Override
     public boolean isEmpty() {
         // TODO
-        return false;
+        return head == null;
     }
 
     @Override
     public E get(int position) {
         // TODO
-        return null;
+        int count=0;
+        Node<E> curr = head;
+        while(curr!=null && position !=count) {
+            count++;
+            curr=curr.getNext();
+        }
+
+        return curr.getElement();
     }
 
     @Override
     public void add(int position, E e) {
         // TODO
+
+        if(position == 0) {
+            addFirst(e);
+            return;
+        }
+        int count = 0;
+        Node<E> curr = head;
+        while(position-1 != count && curr!=null){
+            count++;
+            curr = curr.getNext();
+        }
+
+       
+
+        Node<E> newNode = new Node<E>(e, curr.getNext());
+        
+        curr.setNext(newNode);
+        size++;
+        
+
     }
 
 
     @Override
     public void addFirst(E e) {
         // TODO
+        head = new Node<E>(e, head);
+        size++;
     }
 
     @Override
     public void addLast(E e) {
         // TODO
+        Node<E> newNode = new Node<E>(e, null);
+        Node<E> last = head;
+        if(last == null){
+            head=newNode;
+        }
+        else {
+            while(last.getNext() !=null) {
+                last= last.getNext();
+            }
+            last.setNext(newNode);
+        }
+        size++;
     }
 
     @Override
     public E remove(int position) {
         // TODO
-        return null;
+        if(position==0) {
+            return removeFirst();
+        }
+        int count=0;
+        Node<E> curr = head;
+        while(position-1 != count && curr != null) {
+            count++;
+            curr = curr.getNext();
+        }
+
+        Node<E> toDel = curr.getNext();
+        curr.setNext(toDel.getNext());
+        size--;
+
+        return toDel.getElement();
     }
 
     @Override
     public E removeFirst() {
         // TODO
-        return null;
+        if(isEmpty()){
+            return null;
+        }
+
+        E el = head.getElement();
+        head = head.getNext();
+        size--;
+        return el;
     }
 
     @Override
     public E removeLast() {
         // TODO
-        return null;
+        if(isEmpty()) {
+            return null;
+        }
+
+        if(head.getNext() == null) {
+            E el = head.getElement();
+            head = null;
+            size--;
+            return el;
+        }
+
+        Node<E> curr = head;
+        while(curr.getNext().getNext() != null) {
+            curr = curr.getNext();
+        }
+
+        E el = curr.getNext().getElement();
+        curr.setNext(null);
+        size--;
+        return el;
     }
 
     //@Override
@@ -178,4 +262,16 @@ public class SinglyLinkedList<E> implements List<E> {
         System.out.println(ll);
 
     }
+
+	@Override
+	public boolean hasNext() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public E next() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
