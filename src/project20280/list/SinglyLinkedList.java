@@ -18,7 +18,7 @@ public class SinglyLinkedList<E> implements List<E>, Iterator<E> {
         /**
          * Creates a node with the given element and next node.
          *
-         * @param e the element to be stored
+         * @param e the element   to be stored
          * @param n reference to a node that should follow the new node
          */
         public Node(E e, Node<E> n) {
