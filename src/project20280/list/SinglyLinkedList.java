@@ -274,4 +274,81 @@ public class SinglyLinkedList<E> implements List<E>, Iterator<E> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	//Q9
+	public SinglyLinkedList<E> sortedMerge(SinglyLinkedList<E> a, SinglyLinkedList<E> b) {
+		SinglyLinkedList<E> c = new SinglyLinkedList<E>();
+		
+		if(a.isEmpty() && b.isEmpty()) {
+			return c;
+		}
+		else if (a.isEmpty()) {
+			return b;
+		}
+		else if (b.isEmpty()) {
+			return a;
+		}
+		
+		int i =0;
+		int j=0;
+		
+		while(i < a.size() && j <b.size()) {
+			E elA = a.get(i);
+			E elB = b.get(j);
+			
+			if(((Comparable<E>) elA).compareTo(elB) <= 0) {
+				c.addLast(elA);
+				i++;
+			}
+			else {
+				c.addLast(elB);
+				j++;
+			}
+		}
+		
+		while(i<a.size()) {
+			c.addLast(a.get(i));
+			i++;
+		}
+		
+		while(j < b.size()) {
+			c.addLast(b.get(j));
+			j++;
+		}
+		
+		return c;
+	}
+	
+	//10
+	
+	public SinglyLinkedList<E> reverse(SinglyLinkedList<E> list) {
+	
+		Node<E> prev = null;
+		Node<E> curr = head;
+		Node<E> next;
+		
+		while(curr!=null) {
+			next = curr.getNext();
+			curr.setNext(prev);
+			prev = curr;
+			curr = next;
+		}
+		head = prev;
+		
+		return list;
+	}
+	
+	public SinglyLinkedList<E> copy(SinglyLinkedList<E> list) {
+		SinglyLinkedList<E> copy = new SinglyLinkedList<E>();
+		
+		Node<E> temp = head;
+		while(temp!=null) {
+			copy.addLast(temp.getElement());
+			temp = temp.next;
+		}
+		
+		
+		return copy;
+	}
 }
