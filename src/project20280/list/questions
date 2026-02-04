@@ -1,0 +1,14 @@
+Q6: What is the difference between a singly linked list and a circularly linked list? 
+	In circularly linked lists the last node points to the head, whereas in singularly linked lists the tail points to null and cannot loop back
+
+Q7: In what situations would you prefer to use a linked list to an array? 
+	Linked lists can grow and change dynamically whereas an array is a fixed size. To alter an array size you must copy the array into a new array with the new size. So when you don’t know how large the list will be, it is better to use a linked list 
+	
+	Linked lists are not in consecutive memory, whereas arrays must be consecutively together. With limited memory available, linked lists are better. 
+	
+Q8: Describe 2 possible use-cases for a circularly linked list (2-3 sentences for each).
+	Round robin scheduling - allows user to cycle through all nodes by moving the tail pointer (rotate) and wrapping back to the first element. 
+	
+	Playlist with repeat - a playlist plays each song, with the last song then looping back to the beginning and playing the first one again. 
+	
+	Games - looping through players turns in a fixed order and returning to the beginning to start the loop again.
