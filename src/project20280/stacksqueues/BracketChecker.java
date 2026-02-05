@@ -1,5 +1,7 @@
 package project20280.stacksqueues;
 
+import java.util.Stack;
+
 class BracketChecker {
     private final String input;
 
@@ -9,6 +11,38 @@ class BracketChecker {
 
     public void check() {
         // TODO
+    	
+    	Stack<Character> stack = new Stack<>();
+    	
+    	for(char c : input.toCharArray()) {
+    		if(c == '(' || c == '{' || c == '[') {
+    			stack.push(c);
+    		}
+    		else if(c == ')' || c == '}' || c == ']') {
+    			if(stack.isEmpty()) {
+    				System.out.println("Not Balanced");
+    				return;
+    			}
+    			
+    			char top = stack.peek();
+    			if((c == ')' && top != '(') || 
+    					(c == '}' && top != '{') || 
+    					(c == ']' && top != '[')) {
+    				System.out.println("Not Balanced");
+    				return;
+    			}
+    			
+    			stack.pop();
+    		}
+    	}
+    	
+    	if(stack.isEmpty()) {
+    		System.out.println("Balanced");
+    	}
+    	else {
+    		System.out.println("Not Balanced");
+    	}
+    
     }
 
     public static void main(String[] args) {
