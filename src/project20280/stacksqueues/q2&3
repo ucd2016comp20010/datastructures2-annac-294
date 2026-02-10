@@ -1,0 +1,52 @@
+Q2 Creating a Queue using two Stacks
+
+stacks s1, s2
+
+Algorithm enqueue(o) :
+	Input: object o
+	Output: none
+	
+	push o onto s1
+	
+
+Algorithm dequeue() : 
+	Input: none
+	Output: object (front of queue)
+	
+	if s2 is empty 
+		if s1 is empty  
+			return null
+		
+		while s1 is not empty
+			x <- pop from s1
+			push x onto s2
+	
+	x <- pop from s2
+	
+	return x
+	
+	
+	
+	
+Q3 Reversing a stack using 2 additional stacks 
+
+Algorithm reverseStack(S) :
+
+	Input: Stack S
+	Output: none
+	
+	initialise empty stack S1
+	initialise empty stack S2
+	
+	while S is not empty do
+		x <- pop from S
+		push x onto S1
+	
+	while S1 is not empty 
+		x <- pop from S1
+		push x onto S2
+	
+	while S2 is not empty  
+		x <- pop from S2
+		push x onto S
+	
