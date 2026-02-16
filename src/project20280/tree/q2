@@ -1,0 +1,58 @@
+Q2 recursive function to count the number of external nodes 
+
+Algorithm countExternal(n) :
+	Input: a node n in the tree
+	Output: Integer (number of external nodes)
+	
+	if isExternal(n) then
+		return 1
+		
+	else 
+		count=0
+		if n.hasLeft then
+			count = count + countExternal(n.left)
+			
+		if n.hasRight then
+			count = count + countExternal(n.right)
+			
+	return count
+	
+	
+Q3
+
+Algorithm countLeftExternal(n)
+	Input: node n
+	Output: integer (count of left external nodes)
+	
+	count = 0
+	
+	if v.hasLeft then
+		leftChild = v.left
+		
+		if leftChild.isExternal then
+			count = count + 1
+	
+		else
+			count = count + countLeftExternal(leftChild)
+			
+	if v.hasRight then
+		rightChild = v.right
+		
+		if rightChild.isInternal then
+			count = count + countLeftExternal(rightChild)
+	
+			
+	return count
+	
+Q5
+
+Algorithm countDescendants 
+	Input: node n
+	Output: integer (number of descendants)
+	
+	count = 0
+	
+	for each child c of n do
+		count = count + 1 + countDescendants(c)
+		
+	return count 
