@@ -6,6 +6,8 @@ import project20280.interfaces.Tree;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Queue;
+import java.util.LinkedList;
 
 
 /**
@@ -28,11 +30,16 @@ public abstract class AbstractTree<E> implements Tree<E> {
     @Override
     public boolean isInternal(Position<E> p) {
         // TODO
-        return false;
+        if(numChildren(p) >= 1) {
+        	return true;
+        }
+        else {
+        	return false;
+        }
     }
 
     /**
-     * Returns true if Position p does not have any children.
+     * Returns true if Position p oes not have any children.
      *
      * @param p A valid Position within the tree
      * @return true if p has zero children, false otherwise
@@ -42,10 +49,10 @@ public abstract class AbstractTree<E> implements Tree<E> {
     public boolean isExternal(Position<E> p) {
         // TODO
         if(numChildren(p) == 0) {
-        	return false;
+        	return true;
         }
         else {
-        	return true;
+        	return false;
         }
     }
 
@@ -58,12 +65,7 @@ public abstract class AbstractTree<E> implements Tree<E> {
     @Override
     public boolean isRoot(Position<E> p) {
         // TODO
-    	if(parent(p) == null) {
-    		return true;
-    	}
-    	else {
-    		return false;
-    	}
+    	return p == root();
     }
 
     /**
@@ -76,7 +78,12 @@ public abstract class AbstractTree<E> implements Tree<E> {
     @Override
     public int numChildren(Position<E> p) {
         // TODO
-        return 0;
+    	int count = 0;
+    	for(Position<E> child : children(p)) {
+    		count++;
+    	}
+    	
+    	return count;
     }
 
     /**
@@ -87,7 +94,9 @@ public abstract class AbstractTree<E> implements Tree<E> {
     @Override
     public int size() {
         int count = 0;
-        for (Position p : positions()) count++;
+        for (Position<E> p : positions()) {
+        	count++;
+        }
         return count;
     }
 
@@ -203,6 +212,11 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     private void preorderSubtree(Position<E> p, List<Position<E>> snapshot) {
         // TODO
+    	snapshot.add(p);
+    	
+    	for(Position<E> child : children(p)) {
+    		preorderSubtree(child, snapshot);
+    	}
     }
 
     /**
@@ -212,7 +226,12 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     public Iterable<Position<E>> preorder() {
         // TODO
-        return null;
+        List<Position<E>> snapshot = new ArrayList<>();
+        if(!isEmpty()) {
+        	preorderSubtree(root(), snapshot);
+        }
+        
+        return snapshot;
     }
 
     /**
@@ -224,6 +243,12 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     private void postorderSubtree(Position<E> p, List<Position<E>> snapshot) {
         // TODO
+   	
+    	for(Position<E> child : children(p)) {
+    		preorderSubtree(child, snapshot);
+    	}
+    	
+    	snapshot.add(p);
     }
 
     /**
@@ -245,6 +270,18 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     public Iterable<Position<E>> breadthfirst() {
         // TODO
-        return null;
+        List<Position<E>> snapshot = new ArrayList<>();
+        if(!isEmpty()) {
+        	Queue<Position<E>> q = new LinkedList<>();
+        	q.add(root());
+        	while(!q.isEmpty()) {
+        		Position<E> p = q.remove();
+        		snapshot.add(p);
+        		for(Position<E>child : children(p)) {
+        			q.add(child);
+        		}
+        	}
+        }
+        return snapshot;
     }
 }

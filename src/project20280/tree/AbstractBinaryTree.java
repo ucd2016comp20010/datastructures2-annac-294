@@ -25,7 +25,15 @@ public abstract class AbstractBinaryTree<E> extends AbstractTree<E>
     @Override
     public Position<E> sibling(Position<E> p) {
         // TODO
-        return null;
+        if(p == left(parent(p))) {
+        	return right(parent(p));
+        }
+        else if(p == right(parent(p))) {
+        	return left(parent(p));
+        }
+        else {
+        	return null;
+        }
     }
 
     /**
@@ -38,7 +46,15 @@ public abstract class AbstractBinaryTree<E> extends AbstractTree<E>
     @Override
     public int numChildren(Position<E> p) {
         // TODO
-        return 0;
+        if(left(p) != null && right(p) != null) {
+        	return 2;
+        }
+        else if(left(p) != null || right(p) != null) {
+        	return 1;
+        }
+        else {
+        	return 0;
+        }
     }
 
     /**

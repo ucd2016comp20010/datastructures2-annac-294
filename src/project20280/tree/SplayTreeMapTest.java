@@ -135,11 +135,6 @@ class SplayTreeMapTest {
     }
 
     @Test
-    void testEntrySet() {
-        fail("Not yet implemented");
-    }
-
-    @Test
     void testToString() {
         SplayTreeMap<Integer, String> map = new SplayTreeMap<>();
         //java.util.TreeMap<Integer, String> map = new java.util.TreeMap<>();

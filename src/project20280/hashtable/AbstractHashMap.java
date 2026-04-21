@@ -2,6 +2,7 @@ package project20280.hashtable;
 
 import project20280.interfaces.AbstractMap;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -24,6 +25,7 @@ public abstract class AbstractHashMap<K, V> extends AbstractMap<K, V> {
     private final long shift;           // the shift and scaling factors
     protected int n = 0;                 // number of entries in the dictionary
     protected int capacity;              // length of the table
+
 
     /**
      * Creates a hash table with the given capacity and prime factor.
@@ -99,7 +101,13 @@ public abstract class AbstractHashMap<K, V> extends AbstractMap<K, V> {
     @Override
     public V put(K key, V value) {
         // TODO
-        return null;
+        int h= hashValue(key);
+        V result = bucketPut(h, key, value);
+        if(n>capacity/2) {
+        	resize(2* capacity-1);
+        }
+        
+        return result;
     }
 
     // private utilities
@@ -109,7 +117,7 @@ public abstract class AbstractHashMap<K, V> extends AbstractMap<K, V> {
      */
     private int hashValue(K key) {
         // TODO
-        return 0;
+    	return (int) ((Math.abs(key.hashCode() * scale + shift) % prime) % capacity);
     }
 
     /**
@@ -117,6 +125,19 @@ public abstract class AbstractHashMap<K, V> extends AbstractMap<K, V> {
      */
     private void resize(int newCap) {
         // TODO
+    	ArrayList<project20280.interfaces.Entry<K, V>> buf = new ArrayList<>();
+
+        for (project20280.interfaces.Entry<K, V> e : entrySet()) {
+            buf.add(e);
+        }
+
+        capacity = newCap;
+        createTable();   // IMPORTANT: recreate table properly
+        n = 0;
+
+        for (project20280.interfaces.Entry<K, V> e : buf) {
+            put(e.getKey(), e.getValue());
+        }
     }
 
     // protected abstract methods to be implemented by subclasses

@@ -1,0 +1,26 @@
+Algorithm Diameter(n) :
+	Input: a node n in the tree
+	Output: integer (the diameter of the tree)
+	
+	maxDiameter = 0;
+	
+	function height(node) :
+		if a node is null 
+			return zero
+			
+		leftHeight = height(node.left)
+		rightHeight = height(node.right)
+		
+		currentDiameter = leftHeight + rightHeight + 1
+		
+		if currentDiameter > maxDiameter
+			maxDiameter = currentDiameter
+			
+	
+		return max(leftHeight, rightHeight) + 1
+		
+	
+	height(n)
+	
+	return maxDiameter
+		

@@ -351,4 +351,34 @@ public class SinglyLinkedList<E> implements List<E>, Iterator<E> {
 		
 		return copy;
 	}
+	
+	public void reverse() {
+	    Node<E> prev = null;
+	    Node<E> current = head;
+	    Node<E> next = null;
+
+	    while (current != null) {
+	        next = current.next;
+	        current.next = prev;
+	        prev = current;
+	        current = next;
+	    }
+
+	    head = prev;
+	}
+	
+	public SinglyLinkedList<E> recursiveCopy() {
+	    SinglyLinkedList<E> newList = new SinglyLinkedList<>();
+	    newList.head = copyNodes(this.head);
+	    return newList;
+	}
+
+	private Node<E> copyNodes(Node<E> node) {
+	    if (node == null)
+	        return null;
+
+	    Node<E> newNode = new Node<>(node.getElement(), null);
+	    newNode.next = copyNodes(node.next);
+	    return newNode;
+	}
 }
